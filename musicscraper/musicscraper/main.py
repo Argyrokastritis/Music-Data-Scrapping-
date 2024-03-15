@@ -1,14 +1,27 @@
-from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QVBoxLayout, QWidget
+from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QVBoxLayout, QWidget, QLineEdit, QLabel
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import Qt
+import os
 import sys
 import subprocess
 
-
 def scrape_music():
-    # Call your scrapy function here
+    # Get the paragraph name from the text input field
+    paragraph_name = text_input.text()
+
+    # Define the full path to the output files
+    csv_file = "C:/Users/giann/PycharmProjects/Music_Web_Scraper/musicscraper/item.csv"
+    json_file = "C:/Users/giann/PycharmProjects/Music_Web_Scraper/musicscraper/item.json"
+
+    # Delete the output files if they exist
+    if os.path.exists(csv_file):
+        os.remove(csv_file)
+    if os.path.exists(json_file):
+        os.remove(json_file)
+
+    # Call your scrapy function with the paragraph name as an argument
     subprocess.run(
-        ["C:/Users/giann/PycharmProjects/Music_Web_Scraper/.venv/Scripts/python", "-m", "scrapy", "crawl", "music"],
+        ["C:/Users/giann/PycharmProjects/Music_Web_Scraper/.venv/Scripts/python", "-m", "scrapy", "crawl", "music", "-a", f"paragraph_name={paragraph_name}", "-o", csv_file, "-o", json_file],
         cwd='C:/Users/giann/PycharmProjects/Music_Web_Scraper/musicscraper', stderr=subprocess.STDOUT)
 
 
@@ -36,6 +49,14 @@ create_button.setStyleSheet('QPushButton {background-color: orange; color: white
 create_button.setFixedSize(120, 30)
 layout.addWidget(create_button, 0, Qt.AlignCenter)
 
+# Add a label for the text input field
+label = QLabel("Select a topic to scrape:")
+layout.addWidget(label, 0, Qt.AlignCenter)
+
+# Create a text input field for the paragraph name
+text_input = QLineEdit()
+layout.addWidget(text_input, 0, Qt.AlignCenter)
+
 # Add a stretch to push the button to the bottom
 layout.addStretch()
 
@@ -48,3 +69,4 @@ layout.addWidget(button, 0, Qt.AlignCenter)
 window.show()
 
 sys.exit(app.exec_())
+
