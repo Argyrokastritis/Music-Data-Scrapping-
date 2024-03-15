@@ -32,7 +32,8 @@ window.setWindowTitle("Music Scraper")
 window.setGeometry(100, 100, 250, 100)  # sets the default dimensions to 300x200
 window.setWindowIcon(QIcon('C:/Users/giann/PycharmProjects/Music_Web_Scraper/musicscraper/musicscraper/note.ico'))  # sets the window icon
 
-# Set the background color of the window to white
+#TODO
+# Set the background color of the window to light yellow
 window.setStyleSheet("background-color: yellow;")
 
 # Create a QWidget and set it as the central widget

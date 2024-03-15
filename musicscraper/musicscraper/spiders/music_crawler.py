@@ -9,6 +9,7 @@ class MusicSpider(scrapy.Spider):
         super(MusicSpider, self).__init__(*args, **kwargs)
         self.paragraph_name = paragraph_name
 
+    #TODO make the function parse better as it doesnt exactly parse what we want
     def parse(self, response):
         items = MusicscraperItem()
 
