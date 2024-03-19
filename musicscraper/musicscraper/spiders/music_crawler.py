@@ -17,9 +17,9 @@ class MusicSpider(scrapy.Spider):
         section = response.xpath(f'//span[@id="{self.paragraph_name}"]/ancestor::h2/following-sibling::div[1]')
 
         # Extract the title, text, and urls within the section
-        title = section.xpath('.//h3/span[@class="mw-headline"]/text()').extract()
-        text = section.xpath('.//p/text()').extract()
-        urls = section.xpath('.//a/@href').extract()
+        title = self.paragraph_name
+        text = section.xpath('following-sibling::p[1]/text() | following-sibling::p[2]/text()').extract()
+        urls = section.xpath('following-sibling::p[1]//a/@href | following-sibling::p[2]//a/@href').extract()
 
         items['title'] = title
         items['text'] = text
