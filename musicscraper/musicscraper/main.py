@@ -3,9 +3,6 @@ from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import Qt
 import os
 import sys
-import subprocess
-import pandas as pd
-import sqlite3
 from musicscraper.musicscraper import database
 
 
