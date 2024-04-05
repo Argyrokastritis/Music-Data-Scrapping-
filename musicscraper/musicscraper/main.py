@@ -35,8 +35,9 @@ layout = QVBoxLayout(central_widget)
 
 # Create the 'Create Music Sites' button
 create_button = QPushButton('Create Music Sites')
+# changes the button color to orange and text color to white
 create_button.setStyleSheet(
-    'QPushButton {background-color: orange; color: white;}')  # changes the button color to orange and text color to white
+    'QPushButton {background-color: orange; color: white;}')
 # create_button.clicked.connect(create_music_sites)
 create_button.setFixedSize(120, 30)
 layout.addWidget(create_button, 0, Qt.AlignCenter)
