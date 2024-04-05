@@ -4,25 +4,17 @@ from PyQt5.QtCore import Qt
 import os
 import sys
 import subprocess
+import pandas as pd
+import sqlite3
+from musicscraper.musicscraper import database
+
 
 def scrape_music():
     # Get the paragraph name from the text input field
     paragraph_name = text_input.text()
 
-    # Define the full path to the output files
-    csv_file = "C:/Users/giann/PycharmProjects/Music_Web_Scraper/musicscraper/item.csv"
-    json_file = "C:/Users/giann/PycharmProjects/Music_Web_Scraper/musicscraper/item.json"
-
-    # Delete the output files if they exist
-    if os.path.exists(csv_file):
-        os.remove(csv_file)
-    if os.path.exists(json_file):
-        os.remove(json_file)
-
-    # Call your scrapy function with the paragraph name as an argument
-    subprocess.run(
-        ["C:/Users/giann/PycharmProjects/Music_Web_Scraper/.venv/Scripts/python", "-m", "scrapy", "crawl", "music", "-a", f"paragraph_name={paragraph_name}", "-o", csv_file, "-o", json_file],
-        cwd='C:/Users/giann/PycharmProjects/Music_Web_Scraper/musicscraper', stderr=subprocess.STDOUT)
+    # Call the function from the database module
+    database.scrape_and_store(paragraph_name)
 
 
 app = QApplication(sys.argv)
@@ -30,9 +22,10 @@ app = QApplication(sys.argv)
 window = QMainWindow()
 window.setWindowTitle("Music Scraper")
 window.setGeometry(100, 100, 250, 100)  # sets the default dimensions to 300x200
-window.setWindowIcon(QIcon('C:/Users/giann/PycharmProjects/Music_Web_Scraper/musicscraper/musicscraper/note.ico'))  # sets the window icon
+window.setWindowIcon(QIcon(
+    'C:/Users/giann/PycharmProjects/Music_Web_Scraper/musicscraper/musicscraper/note.ico'))  # sets the window icon
 
-#TODO
+# TODO
 # Set the background color of the window to light yellow
 window.setStyleSheet("background-color: yellow;")
 
@@ -45,8 +38,9 @@ layout = QVBoxLayout(central_widget)
 
 # Create the 'Create Music Sites' button
 create_button = QPushButton('Create Music Sites')
-create_button.setStyleSheet('QPushButton {background-color: orange; color: white;}')  # changes the button color to orange and text color to white
-#create_button.clicked.connect(create_music_sites)
+create_button.setStyleSheet(
+    'QPushButton {background-color: orange; color: white;}')  # changes the button color to orange and text color to white
+# create_button.clicked.connect(create_music_sites)
 create_button.setFixedSize(120, 30)
 layout.addWidget(create_button, 0, Qt.AlignCenter)
 
@@ -62,7 +56,8 @@ layout.addWidget(text_input, 0, Qt.AlignCenter)
 layout.addStretch()
 
 button = QPushButton('Scrape')
-button.setStyleSheet('QPushButton {background-color: red; color: white;}')  # changes the button color to red and text color to white
+button.setStyleSheet(
+    'QPushButton {background-color: red; color: white;}')  # changes the button color to red and text color to white
 button.clicked.connect(scrape_music)
 button.setFixedSize(40, 30)
 layout.addWidget(button, 0, Qt.AlignCenter)
@@ -70,4 +65,3 @@ layout.addWidget(button, 0, Qt.AlignCenter)
 window.show()
 
 sys.exit(app.exec_())
-
