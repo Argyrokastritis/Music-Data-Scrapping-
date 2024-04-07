@@ -1,9 +1,16 @@
 from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QVBoxLayout, QWidget, QLineEdit, QLabel
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import Qt
-import os
 import sys
 from musicscraper.musicscraper import database
+from musicscraper.musicscraper.musicsites import create_music_sites
+import database
+
+
+class MainWindow(QMainWindow):
+    def closeEvent(self, event):
+        database.drop_database()  # call the function from database module
+        event.accept()
 
 
 def scrape_music():
@@ -16,7 +23,8 @@ def scrape_music():
 
 app = QApplication(sys.argv)
 
-window = QMainWindow()
+#window = QMainWindow()
+window = MainWindow()
 window.setWindowTitle("Music Scraper")
 window.setGeometry(100, 100, 250, 100)  # sets the default dimensions to 300x200
 window.setWindowIcon(QIcon(
@@ -39,6 +47,7 @@ create_button = QPushButton('Create Music Sites')
 create_button.setStyleSheet(
     'QPushButton {background-color: orange; color: white;}')
 # create_button.clicked.connect(create_music_sites)
+create_button.clicked.connect(create_music_sites)
 create_button.setFixedSize(120, 30)
 layout.addWidget(create_button, 0, Qt.AlignCenter)
 

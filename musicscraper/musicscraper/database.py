@@ -27,9 +27,49 @@ def scrape_and_store(paragraph_name):
     data_json['text'] = data_json['text'].apply(lambda x: ', '.join(x))
     data_json['urls'] = data_json['urls'].apply(lambda x: ', '.join(x))
 
+    # Connect to the SQLite database
     db_connection = sqlite3.connect('mydatabase.db')
+    cursor = db_connection.cursor()
 
-    data_json.to_sql('music_data', con=db_connection, if_exists='append', index=False)
+    # Create the music_data table if it doesn't exist
+    cursor.execute("""
+            CREATE TABLE IF NOT EXISTS music_data (
+                title TEXT UNIQUE,
+                text TEXT,
+                urls TEXT
+            )
+        """)
 
+    # Iterate over the rows in the DataFrame
+    for index, row in data_json.iterrows():
+        # Convert the row to a dictionary
+        record = row.to_dict()
+
+        # Try to insert the record into the database
+        try:
+            data_json.iloc[[index]].to_sql('music_data', con=db_connection, if_exists='append', index=False)
+        except sqlite3.IntegrityError:
+            print(f"Skipping duplicate record: {record}")
+
+    # Commit the changes and close the connection
     db_connection.commit()
     db_connection.close()
+
+def drop_database():
+    # Connect to the SQLite database
+    db_connection = sqlite3.connect('mydatabase.db')
+    cursor = db_connection.cursor()
+
+    # Drop the table
+    cursor.execute("DROP TABLE IF EXISTS music_data")
+
+    # Commit the changes and close the connection
+    db_connection.commit()
+    db_connection.close()
+
+    # Remove the database file
+    os.remove('mydatabase.db')
+
+    print("Database dropped successfully!")
+
+
