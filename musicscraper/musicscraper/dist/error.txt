@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "musicscraper\musicscraper\main.py", line 1, in <module>
+ModuleNotFoundError: No module named 'PyQt5'
+[18064] Failed to execute script 'main' due to unhandled exception!

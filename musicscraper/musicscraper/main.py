@@ -2,9 +2,8 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QVBoxLayout,
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import Qt
 import sys
-from musicscraper.musicscraper import database
 from musicscraper.musicscraper.musicsites import create_music_sites
-import database
+from musicscraper.musicscraper import database
 
 
 class MainWindow(QMainWindow):
