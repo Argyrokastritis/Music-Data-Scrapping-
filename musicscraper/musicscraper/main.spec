@@ -3,7 +3,7 @@
 
 a = Analysis(
     ['main.py'],
-    pathex=['C:\\path\\to\\venv\\Lib\\site-packages'],
+    pathex=['C:\\Users\\giann\\PycharmProjects\\Music_Web_Scraper\\.venv\\Lib\\site-packages'],
     binaries=[],
     datas=[],
     hiddenimports=[],
@@ -34,4 +34,5 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
+    onefile=True
 )
