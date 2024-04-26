@@ -3,6 +3,8 @@ from ..items import MusicscraperItem
 
 class MusicSpider(scrapy.Spider):
     name = 'music'
+
+    #TODO add more urls to extract data from
     start_urls = ['https://en.wikipedia.org/wiki/Music']
 
     def __init__(self, paragraph_name=None, *args, **kwargs):
