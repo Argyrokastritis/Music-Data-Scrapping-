@@ -1,6 +1,7 @@
 import scrapy
 from ..items import MusicscraperItem
 
+
 class MusicSpider(scrapy.Spider):
     name = 'music'
 
@@ -18,7 +19,6 @@ class MusicSpider(scrapy.Spider):
         # Select the section by its id
         section = response.xpath(f'//span[@id="{self.paragraph_name}"]/ancestor::h2/following-sibling::div[1]')
 
-        # Extract the title, text, and urls within the section
         title = self.paragraph_name
         text = section.xpath('following-sibling::p[1]/text() | following-sibling::p[2]/text()').extract()
         urls = section.xpath('following-sibling::p[1]//a/@href | following-sibling::p[2]//a/@href').extract()
@@ -26,4 +26,18 @@ class MusicSpider(scrapy.Spider):
         items['title'] = title
         items['text'] = text
         items['urls'] = urls
+
+        print("The extracted title is: ", title)
+        print("The data type of title is: ", type(title))
+
+        print("The extracted text is: ", text)
+        print("The data type of text is: ", type(text))
+        for i, t in enumerate(text):
+            print(f"The {i + 1}th element of the text list is: {t}")
+
+        print("The extracted urls are: ", urls)
+        print("The data type of urls is: ", type(urls))
+        for i, u in enumerate(urls):
+            print(f"The {i + 1}th element of the urls list is: {u}")
+
         yield items
