@@ -1,3 +1,4 @@
+import os
 from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QVBoxLayout, QWidget, QLineEdit, QLabel
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import Qt
@@ -10,7 +11,7 @@ class MainWindow(QMainWindow):
     def closeEvent(self, event):
         database.drop_database()  # call the function from database module
         event.accept()
-
+        os._exit(0)  # Terminate the Python process
 
 def scrape_music():
     # Get the paragraph name from the text input field

@@ -6,20 +6,24 @@ import os
 from bs4 import BeautifulSoup
 from PyQt5.QtWidgets import QApplication, QDialog, QVBoxLayout, QPushButton, QColorDialog, QLabel
 
-app = None
 
+app = None
 
 def choose_color(label):
     color = QColorDialog.getColor()
     if color.isValid():
         label.setText(color.name())
 
-
 def create_music_sites():
     global app
     app = QApplication([])
     dialog = QDialog()
     layout = QVBoxLayout()
+
+    # Set the window title, color and default size
+    dialog.setWindowTitle('Color Picker Menu')
+    dialog.setStyleSheet("QDialog { background-color: lightpink; }")  # This will only change the dialog's background color
+    dialog.resize(300, 150)  # Set the default size to 200x200 pixels
 
     # Create labels to display the chosen colors
     font_color_label = QLabel()
@@ -31,11 +35,16 @@ def create_music_sites():
     bg_color_button = QPushButton('Choose Background Color')
     bg_color_button.clicked.connect(lambda: choose_color(bg_color_label))
 
+    # Create an OK button to close the dialog
+    ok_button = QPushButton('OK')
+    ok_button.clicked.connect(dialog.accept)  # This will close the dialog when the button is clicked
+
     # Add the buttons and labels to the layout
     layout.addWidget(font_color_button)
     layout.addWidget(font_color_label)
     layout.addWidget(bg_color_button)
     layout.addWidget(bg_color_label)
+    layout.addWidget(ok_button)  # Add the OK button to the layout
 
     # Set the layout on the dialog and show the dialog
     dialog.setLayout(layout)
