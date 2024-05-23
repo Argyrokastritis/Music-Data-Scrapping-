@@ -71,4 +71,6 @@ layout.addWidget(button, 0, Qt.AlignCenter)
 
 window.show()
 
+print("Main window created")
 sys.exit(app.exec_())
+

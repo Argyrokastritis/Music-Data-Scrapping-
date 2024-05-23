@@ -22,8 +22,8 @@ def create_music_sites():
 
     # Set the window title, color and default size
     dialog.setWindowTitle('Color Picker Menu')
-    dialog.setStyleSheet("QDialog { background-color: lightpink; }")  # This will only change the dialog's background color
-    dialog.resize(300, 150)  # Set the default size to 200x200 pixels
+    dialog.setStyleSheet("QDialog { background-color: lightpink; }")
+    dialog.resize(300, 150)
 
     # Create labels to display the chosen colors
     font_color_label = QLabel()
@@ -37,18 +37,18 @@ def create_music_sites():
 
     # Create an OK button to close the dialog
     ok_button = QPushButton('OK')
-    ok_button.clicked.connect(dialog.accept)  # This will close the dialog when the button is clicked
+    ok_button.clicked.connect(dialog.accept)
 
     # Add the buttons and labels to the layout
     layout.addWidget(font_color_button)
     layout.addWidget(font_color_label)
     layout.addWidget(bg_color_button)
     layout.addWidget(bg_color_label)
-    layout.addWidget(ok_button)  # Add the OK button to the layout
+    layout.addWidget(ok_button)
 
     # Set the layout on the dialog and show the dialog
     dialog.setLayout(layout)
-    dialog.exec_()  # This will block the code execution until the dialog is closed
+    dialog.exec_()
 
     # Get the chosen colors
     font_color = font_color_label.text()
@@ -74,11 +74,11 @@ def create_music_sites():
             <head>
                 <style>
                     body {{
-                        color: {font_color};  /* User chosen color for the font */
-                        background-color: {bg_color};  /* User chosen color for the background */
+                        color: {font_color};
+                        background-color: {bg_color};
                     }}
                     h1 {{
-                        color: tomato;  /* Tomato color for the title */
+                        color: tomato;
                         font-family: Arial, sans-serif;
                         text-align: center;
                     }}
@@ -90,12 +90,15 @@ def create_music_sites():
 
     # Iterate over the rows in the DataFrame
     for index, row in data.iterrows():
-        # Add the title to the HTML content
-        html += f"<h1>{row['title']}</h1>"
+        # Add the title to the HTML content if it's not None
+        if pd.notna(row['title']):
+            html += f"<h1>{row['title']}</h1>"
 
-        # Add the text and urls to the HTML content
-        html += f"<p>{row['text']}</p>"
-        html += f"<p>{row['urls']}</p>"
+        # Add the text and urls to the HTML content if they are not None
+        if pd.notna(row['text']):
+            html += f"<p>{row['text']}</p>"
+        if pd.notna(row['urls']):
+            html += f"<p>{row['urls']}</p>"
 
     # End the HTML content
     html += "</body></html>"
@@ -117,7 +120,8 @@ def create_music_sites():
 
     # Find all <p> tags and replace commas
     for p in soup.find_all('p'):
-        p.string.replace_with(p.text.replace(',', ''))
+        if p.string is not None:
+            p.string.replace_with(p.text.replace(',', ''))
 
     # Write the modified HTML back to the file
     with open(html_file_path, 'w', encoding='utf-8') as f:
@@ -130,3 +134,6 @@ def create_music_sites():
     webbrowser.open('file://' + os.path.realpath(html_file_path))
 
     print("Function completed successfully!")
+
+if __name__ == '__main__':
+    create_music_sites()
