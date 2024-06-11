@@ -3,6 +3,7 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QVBoxLayout,
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import Qt
 import sys
+import glob
 from musicscraper.musicscraper.musicsites import create_music_sites
 from musicscraper.musicscraper import database
 
@@ -10,6 +11,12 @@ from musicscraper.musicscraper import database
 class MainWindow(QMainWindow):
     def closeEvent(self, event):
         database.drop_database()  # call the function from database module
+
+        # Delete all .html files in the specified directory
+        files = glob.glob('C:/Users/giann/PycharmProjects/Music_Web_Scraper/musicscraper/*.html')
+        for f in files:
+            os.remove(f)
+
         event.accept()
         os._exit(0)  # Terminate the Python process
 
