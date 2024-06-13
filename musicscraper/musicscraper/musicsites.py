@@ -69,54 +69,6 @@ def create_music_sites():
     print("Closing the database connection...")
     db_connection.close()
 
-    # # Start the HTML content with a style tag for the title
-    # html = f"""
-    #         <html>
-    #         <head>
-    #             <style>
-    #                 body {{
-    #                     color: {font_color};
-    #                     background-color: {bg_color};
-    #                 }}
-    #                 h1 {{
-    #                     color: tomato;
-    #                     font-family: Arial, sans-serif;
-    #                     text-align: center;
-    #                 }}
-    #             </style>
-    #         </head>
-    #         <body>
-    #         """
-    # print("Start the creating of the page")
-    #
-    # # Iterate over the rows in the DataFrame
-    # for index, row in data.iterrows():
-    #     # Add the title to the HTML content if it's not None
-    #     if pd.notna(row['title']):
-    #         html += f"<h1>{row['title']}</h1>"
-    #         if "of Music" in row['title']:
-    #             html += f'The original source of the paragraph can be found here: <button onclick="window.open(\'https://en.wikipedia.org/wiki/Music\', \'_blank\');">Original Source</button>'
-    #         elif "of Clef" in row['title']:
-    #             html += f'The original source of the paragraph can be found here: <button onclick="window.open(\'https://en.wikipedia.org/wiki/Clef\', \'_blank\');">Original Source</button>'
-    #
-    #     # Add the text and urls to the HTML content if they are not None
-    #     if pd.notna(row['text']):
-    #         html += f"<p>{row['text']}</p>"
-    #     if pd.notna(row['urls']):
-    #         html += f"<p>{row['urls']}</p>"
-    #
-    # # End the HTML content
-    # html += "</body></html>"
-    #
-    # # Define the HTML file path
-    # html_file_path = "C:/Users/giann/PycharmProjects/Music_Web_Scraper/musicscraper/music_data.html"
-    #
-    # # Write the HTML to a file
-    # with open(html_file_path, 'w', encoding='utf-8') as f:
-    #     f.write(html)
-    #
-    # print("HTML file created successfully!")
-
     # Iterate over the unique titles in the DataFrame
     for title in data['title'].unique():
         # Filter the data for the current title
@@ -124,22 +76,25 @@ def create_music_sites():
 
         # Start the HTML content for the current title
         title_html = f"""
-                    <html>
-                    <head>
-                        <style>
-                            body {{
-                                color: {font_color};
-                                background-color: {bg_color};
-                            }}
-                            h1 {{
-                                color: tomato;
-                                font-family: Arial, sans-serif;
-                                text-align: center;
-                            }}
-                        </style>
-                    </head>
-                    <body>
-                    """
+                        <html>
+                        <head>
+                            <style>
+                                body {{
+                                    color: {font_color};
+                                    background-color: {bg_color};
+                                }}
+                                h1 {{
+                                    color: tomato;
+                                    font-family: Arial, sans-serif;
+                                    text-align: center;
+                                }}
+                                p {{
+                                    font-size: 28px;  # Increase the font size of the text
+                                }}
+                            </style>
+                        </head>
+                        <body>
+                        """
 
         # Iterate over the rows in the title data
         for index, row in title_data.iterrows():
@@ -152,8 +107,8 @@ def create_music_sites():
                     title_html += f'The original source of the paragraph can be found here: <button onclick="window.open(\'https://en.wikipedia.org/wiki/Clef\', \'_blank\');">Original Source</button>'
             if pd.notna(row['text']):
                 title_html += f"<p>{row['text']}</p>"
-            if pd.notna(row['urls']):
-                title_html += f"<p>{row['urls']}</p>"
+            #if pd.notna(row['urls']):
+                #title_html += f"<p>{row['urls']}</p>"
 
         # End the HTML content for the current title
         title_html += "</body></html>"
@@ -199,31 +154,6 @@ def create_music_sites():
     with open(main_html_file_path, 'w', encoding='utf-8') as f:
         f.write(main_html)
 
-    # Open the main HTML file in the default web browser
-    # webbrowser.open('file://' + os.path.realpath(main_html_file_path))
-
-    # ########    edit .html file    ########
-    #
-    # # Open the HTML file and read its content
-    # with open(html_file_path, 'r', encoding='utf-8') as f:
-    #     soup = BeautifulSoup(f, 'html.parser')
-    #
-    # # Find all <p> tags and replace commas
-    # for p in soup.find_all('p'):
-    #     if p.string is not None:
-    #         p.string.replace_with(p.text.replace(',', ''))
-    #
-    # # Write the modified HTML back to the file
-    # with open(html_file_path, 'w', encoding='utf-8') as f:
-    #     f.write(str(soup))
-    #
-    # print("Commas removed successfully from <p> tags!")
-    # print("The new .html file without commas created")
-    #
-    # # Open the HTML file in the default web browser
-    # webbrowser.open('file://' + os.path.realpath(html_file_path))
-    #
-    # print("Function completed successfully!")
 
     # Iterate over the unique titles in the DataFrame
     for title in data['title'].unique():
@@ -248,30 +178,46 @@ def create_music_sites():
         print(f"Commas removed successfully from <p> tags in {title}!")
         print(f"The new .html file without commas for {title} created")
 
-    # Start the HTML content for the main page
-    main_html = f"""
-                <html>
-                <head>
-                    <style>
-                        body {{
-                            color: {font_color};
-                            background-color: {bg_color};
-                            text-align: center;
-                        }}
-                        h1 {{
-                            color: tomato;
-                            font-family: Arial, sans-serif;
-                            text-align: center;
-                        }}
-                        button {{
-                            font-size: 20px;
-                            margin: 10px;
-                        }}
-                    </style>
-                </head>
-                <body>
-                <h1>List of Extracted Paragraphs</h1>
-                """
+        # Start the HTML content for the main page
+        main_html = f"""
+                    <html>
+                    <head>
+                        <style>
+                            body {{
+                                color: {font_color};
+                                background-color: {bg_color};
+                                text-align: center;
+                            }}
+                            h1 {{
+                                color: tomato;
+                                font-family: Arial, sans-serif;
+                                text-align: center;
+                                margin-bottom: 40px;  # Double the margin between the title and the container
+                            }}
+                            .container {{
+                                border: 2px solid black;
+                                padding: 20px;
+                                margin: 20px auto;  # Center the container
+                                width: 33%;  # Make the container one third of the page width
+                                background-color: lightgray;  # Change the color of the container
+                                text-align: center;  # Center the text and buttons inside the container
+                                color: blue;  # Change the font color inside the container
+                                box-sizing: border-box;  # Include padding and border in the element's total width and height
+                                overflow: auto;  # Add a scrollbar if the content is too wide
+                            }}
+                            button {{
+                                font-size: 20px;
+                                margin: 10px;
+                                display: inline;  # Make the buttons inline elements
+                            }}
+                        </style>
+                    </head>
+                    <body>
+                    <h1>Welcome to the Scraped Content Page</h1>
+                    <div class="container">
+                        <h1>List of Extracted Paragraphs</h1>
+                    """
+        # The rest of your code...
 
     # Iterate over the unique titles in the DataFrame
     for title in data['title'].unique():
@@ -279,7 +225,7 @@ def create_music_sites():
         main_html += f'<button onclick="window.open(\'{title.replace(' ', '_')}.html\', \'_blank\');">{title}</button><br>'
 
     # End the HTML content for the main page
-    main_html += "</body></html>"
+    main_html += "</div></body></html>"
 
     # Define the HTML file path for the main page
     main_html_file_path = "C:/Users/giann/PycharmProjects/Music_Web_Scraper/musicscraper/main.html"
