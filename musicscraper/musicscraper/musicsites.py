@@ -192,23 +192,26 @@ def create_music_sites():
                                 color: tomato;
                                 font-family: Arial, sans-serif;
                                 text-align: center;
-                                margin-bottom: 40px;  # Double the margin between the title and the container
+                                margin-bottom: 40px;  /* Double the margin between the title and the container */
                             }}
                             .container {{
                                 border: 2px solid black;
                                 padding: 20px;
-                                margin: 20px auto;  # Center the container
-                                width: 33%;  # Make the container one third of the page width
-                                background-color: lightgray;  # Change the color of the container
-                                text-align: center;  # Center the text and buttons inside the container
-                                color: blue;  # Change the font color inside the container
-                                box-sizing: border-box;  # Include padding and border in the element's total width and height
-                                overflow: auto;  # Add a scrollbar if the content is too wide
+                                margin: 20px auto;  /* Center the container */
+                                width: 33%;  /* Make the container one third of the page width */
+                                background-color: lightpink;  /* Change the color of the container */
+                                text-align: center;  /* Center the text and buttons inside the container */
+                                color: blue;  /* Change the font color inside the container */
+                                box-sizing: border-box;  /* Include padding and border in the element's total width and height */
+                                overflow: auto;  /* Add a scrollbar if the content is too wide */
+                            }}
+                            .container * {{
+                                max-width: 100%;  /* Ensure the content doesn't exceed the width of the container */
                             }}
                             button {{
                                 font-size: 20px;
                                 margin: 10px;
-                                display: inline;  # Make the buttons inline elements
+                                display: inline;  /* Make the buttons inline elements */
                             }}
                         </style>
                     </head>
@@ -217,7 +220,7 @@ def create_music_sites():
                     <div class="container">
                         <h1>List of Extracted Paragraphs</h1>
                     """
-        # The rest of your code...
+
 
     # Iterate over the unique titles in the DataFrame
     for title in data['title'].unique():
