@@ -11,6 +11,7 @@ app = None
 
 def choose_color(label):
     color = QColorDialog.getColor()
+    print(color)
     if color.isValid():
         label.setText(color.name())
 

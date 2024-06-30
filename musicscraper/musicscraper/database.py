@@ -62,8 +62,8 @@ def scrape_and_store(paragraph_name):
     """)
 
     # Print the DataFrame to the console
-    print("DataFrame before iteration:")
-    print(data_json)
+    # print("DataFrame before iteration:")
+    # print(data_json)
 
     # Iterate over the rows in the DataFrame
     for index, row in data_json.iterrows():
