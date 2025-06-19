@@ -91,6 +91,7 @@ def create_music_sites():
                                 }}
                                 p {{
                                     font-size: 28px;  # Increase the font size of the text
+                                    text-align: justify;
                                 }}
                             </style>
                         </head>
